@@ -5,27 +5,41 @@ on:
     branches:
       - main
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  deployments: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: Deploy to GitHub Pages
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
+    name: 🚀 Deploy to Production
+    environment:
+      name: production
+      url: https://sam-reply.github.io/affinity-rocks/
 
     steps:
-      - name: Checkout repository
+      - name: 📋 Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Pages
+      - name: ⚙️ Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Upload artifact
+      - name: 📦 Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
 
-      - name: Deploy to GitHub Pages
+      - name: 🚀 Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
+
+      - name: ✅ Deployment Complete - Homepage Updated!
+        run: |
+          echo "🎉 Production deployment complete!"
+          echo "Live at: https://sam-reply.github.io/affinity-rocks/"
