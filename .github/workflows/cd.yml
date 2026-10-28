@@ -21,7 +21,7 @@ jobs:
     name: 🚀 Deploy to Production
     environment:
       name: production
-      url: https://sam-reply.github.io/affinity-rocks/
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: 📋 Checkout repository
@@ -42,4 +42,4 @@ jobs:
       - name: ✅ Deployment Complete - Homepage Updated!
         run: |
           echo "🎉 Production deployment complete!"
-          echo "Live at: https://sam-reply.github.io/affinity-rocks/"
+          echo "Live at: ${{ steps.deployment.outputs.page_url }}"
